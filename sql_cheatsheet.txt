@@ -1,0 +1,15 @@
+mysql -u root -p lamec
+	-pass: root
+
+CREATE TABLE tags_registed(
+	id int NOT NULL AUTO-INCREMENT,
+	tag varchar(255),
+	PRIMARY KEY (id)	
+);
+
+CREATE TABLE user(
+	tag_id int NOT NULL,
+	name varchar(255),
+	FOREIGN KEY (tag_id) REFERENCES tags_registed(id)
+);
+
