@@ -65,5 +65,5 @@ class Scanner {
 }
 
 // Change the port argument
-$scanner = new Scanner('/dev/pts/5');
+$scanner = new Scanner('/dev/ttyUSB0');
 $scanner->run();
