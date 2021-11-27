@@ -37,8 +37,10 @@ class Database():
         query=self.cur.fetchall()
         if query:
             print("Welcome "+query[0][1])
+            return True
         else:
             print("Non-Authorized User")
+        return False
     
     def close(self):
         self.conn.close()
@@ -53,7 +55,11 @@ def main():
         tag=reading.replace("\r\n","").lstrip(' ')
         print(tag)
         db.read_new_tag(tag)
-        db.check_tag_auth(tag)
+        allow_user=db.check_tag_auth(tag)
+        if allow_user:
+            ser.write(b'1')
+        else:
+            ser.write(b'0')
     db.close()
 
 

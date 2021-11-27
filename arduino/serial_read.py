@@ -46,7 +46,7 @@ def main():
         tag=reading.replace("\r\n","").lstrip(' ')
         # reading is a string...do whatever you want from here
         print(tag)
-        insert_tags_registed(tag)
+        #insert_tags_registed(tag)
 
 if __name__ == "__main__":
     # query = cur.execute("SELECT tag FROM tags_registed")
