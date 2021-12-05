@@ -13,3 +13,8 @@ CREATE TABLE user(
 	FOREIGN KEY (tag_id) REFERENCES tags_registed(id)
 );
 
+CREATE TABLE in_out(
+    -> tag_id int NOT NULL,
+    -> time_in datetime,
+    -> time_out datetime,
+    -> FOREIGN KEY (tag_id) REFERENCES tags_registed(id));

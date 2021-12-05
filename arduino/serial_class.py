@@ -1,6 +1,7 @@
 import serial
 import mariadb
 import sys
+from datetime import datetime 
 
 # this port address is for the serial tx/rx pins on the GPIO header
 SERIAL_PORT = '/dev/ttyUSB0'
@@ -37,10 +38,20 @@ class Database():
         query=self.cur.fetchall()
         if query:
             print("Welcome "+query[0][1])
+            self.user_in_out(tag)
             return True
         else:
             print("Non-Authorized User")
         return False
+
+    def user_in_out(self,tag):
+        time = datetime.now()
+        self.cur.execute("SELECT * FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=?",(tag,))
+        query= self.cur.fetchall()
+        if not query:
+            self.cur.execute("INSERT INTO in_out (tag_id,time) VALUES (%s)",(tag,time,))#inserir data de entrada
+        else:
+            self.cur.execute("UPDATE in_out SET time_out=? WHERE tag_id=?",(time,tag))#inserir data de saída
     
     def close(self):
         self.conn.close()

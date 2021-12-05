@@ -12,6 +12,7 @@
 
     <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
     
     <!-- Custom styles for this template -->
     <link href="css/sidebars.css" rel="stylesheet">
@@ -51,7 +52,23 @@
               </li>
             </ul>
             <hr>
-          </div>
+        </div>
+        <div>
+            <table id="datatable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código da Tag</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código da Tag</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </main>
     <script src="js/bootstrap.bundle.min.js"></script>
 
