@@ -1,5 +1,6 @@
 $(document).ready(function() {
+    console.log("get_tag");
     $('#datatable').DataTable( {
-        "ajax": '../ajax/data/arrays.txt'
+        "ajax": "http://localhost:3000/frontend/api/get_tags.php"
     } );
 } );

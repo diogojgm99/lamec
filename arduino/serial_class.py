@@ -48,10 +48,12 @@ class Database():
         time = datetime.now()
         self.cur.execute("SELECT * FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=?",(tag,))
         query= self.cur.fetchall()
+        self.cur.execute("SELECT id from tags_registed WHERE tag=?",(tag,))
+        id = self.cur.fetchall()
         if not query:
-            self.cur.execute("INSERT INTO in_out (tag_id,time) VALUES (%s)",(tag,time,))#inserir data de entrada
+            self.cur.execute("INSERT INTO in_out (tag_id,time) VALUES (%s)",(id[0],time,))#inserir data de entrada
         else:
-            self.cur.execute("UPDATE in_out SET time_out=? WHERE tag_id=?",(time,tag))#inserir data de saída
+            self.cur.execute("UPDATE in_out SET time_out=? WHERE tag_id=?",(time,id[0],))#inserir data de saída
     
     def close(self):
         self.conn.close()
