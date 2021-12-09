@@ -9,8 +9,9 @@ $sql = "SELECT name,tag FROM user JOIN tags_registed as tags ON tags.id =user.ta
 $result = $db->prepare($sql);
 $result->execute();
 $resultSet = $result->get_result();
-$res = $resultSet->fetch_all(PDO::FETCH_ASSOC);
-header('Content-Type: application/json;charset=utf-8');
-echo json_encode(['data' => $res],
+while ($row = $resultSet->fetch_assoc()) {
+    $results[] = $row;
+}
+echo json_encode(['data' => $results],
     JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
 ?>

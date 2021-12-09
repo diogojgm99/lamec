@@ -5,7 +5,7 @@ $password = "root";
 $dbname = "lamec";
 $db = mysqli_connect($servername,$username,$password,$dbname);
 
-$sql = "SELECT id,tag FROM tags_registed;";
+$sql = "SELECT tag,time_in,time_out,total_cost FROM in_out JOIN tags_registed as tags ON tags.id =in_out.tag_id;";
 $result = $db->prepare($sql);
 $result->execute();
 $resultSet = $result->get_result();

@@ -15,6 +15,7 @@ CREATE TABLE user(
 
 CREATE TABLE in_out(
     -> tag_id int NOT NULL,
-    -> time_in datetime,
-    -> time_out datetime,
+    -> time_in varchar(255),
+    -> time_out varchar(255),
+	-> total_cost int,
     -> FOREIGN KEY (tag_id) REFERENCES tags_registed(id));
