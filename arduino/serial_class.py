@@ -46,7 +46,7 @@ class Database():
 
     def user_in_out(self,tag):
         time = datetime.now()
-        self.cur.execute("SELECT * FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=?",(tag,))
+        self.cur.execute("SELECT * FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=? AND time_out IS NULL",(tag,))
         query= self.cur.fetchall()
         self.cur.execute("SELECT id from tags_registed WHERE tag=?",(tag,))
         id = self.cur.fetchall()

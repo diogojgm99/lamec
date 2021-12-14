@@ -51,9 +51,27 @@
               </li>
             </ul>
             <hr>
-          </div>
+        </div>
+        <div>
+          <h2>Add a New User</h2>
+          <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter name">
+            </div>
+
+            <div class="form-group">
+              <label for="tag">Choose Tag</label>
+              <select class="form-control" id="tag">
+              </select>
+            </div>
+          </form>
+          <button type="submit" class="btn btn-primary mb-2" id="add_form">Add User</button>
+        </div>
     </main>
     <script src="js/bootstrap.bundle.min.js"></script>
-
-      <script src="js/sidebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="js/sidebars.js"></script>
+    <script src="/frontend/js/new_user.js"></script>
 </body>
