@@ -87,3 +87,10 @@ main {
 
 .fw-semibold { font-weight: 600; }
 .lh-tight { line-height: 1.25; }
+
+#title{
+  text-align: center;
+  position: relative;
+  top: 370px;
+  left: 550px;
+}

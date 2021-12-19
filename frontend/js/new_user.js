@@ -9,7 +9,8 @@ $(document).ready(function() {
             var val_tag;
             data.forEach(tag => {
                 val_tag = tag.tag;
-                $("#tag").append("<option value="+val_tag+">"+val_tag+"</option>");
+                console.log(val_tag.replace(/ /g,'-'));
+                $("#tag").append("<option value="+val_tag.replace(/ /g,'-')+">"+val_tag+"</option>");
             });
         }
     });
@@ -19,6 +20,7 @@ $(document).ready(function() {
         e.preventDefault(); // avoid to execute the actual submit of the form.
         var name = $('#name').val();
         var tag = $('#tag').val();
+        tag = tag.replaceAll('-',' ');
         console.log(name);
         console.log(tag);
         console.log("submit");
