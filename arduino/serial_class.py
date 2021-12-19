@@ -39,7 +39,8 @@ class Database():
         if query:
             print("Welcome "+query[0][1])
             self.user_in_out(tag)
-            return True
+            if self.check_count(tag):
+                return True
         else:
             print("Non-Authorized User")
         return False
@@ -54,6 +55,13 @@ class Database():
             self.cur.execute("INSERT INTO in_out (tag_id,time) VALUES (%s)",(id[0],time,))#inserir data de entrada
         else:
             self.cur.execute("UPDATE in_out SET time_out=? WHERE tag_id=?",(time,id[0],))#inserir data de saída
+    
+    def check_count(self,tag):
+        self.cur.execute("SELECT COUNT(*) FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=? AND time_out IS NULL",(tag,))
+        query= self.cur.fetchall()
+        if query < 20:
+            return True
+        return False
     
     def close(self):
         self.conn.close()
