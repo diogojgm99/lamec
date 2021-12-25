@@ -4,9 +4,9 @@ import sys
 from datetime import datetime 
 
 # this port address is for the serial tx/rx pins on the GPIO header
-# SERIAL_PORT = '/dev/ttyUSB0'
+SERIAL_PORT = '/dev/ttyUSB0'
 # # be sure to set this to the same rate used on the Arduino
-# SERIAL_RATE = 9600
+SERIAL_RATE = 9600
 
 class Database():
     def __init__(self):
@@ -79,21 +79,20 @@ class Database():
 
 
 def main():
-    #ser = serial.Serial(SERIAL_PORT, SERIAL_RATE)
+    ser = serial.Serial(SERIAL_PORT, SERIAL_RATE)
     db = Database()
 
     while True:
-        # reading = ser.readline().decode('utf-8')
-        # tag=reading.replace("\r\n","").lstrip(' ')
-        # print(tag)
-        tag="4E T2 YX A8"
+        reading = ser.readline().decode('utf-8')
+        tag=reading.replace("\r\n","").lstrip(' ')
+        print(tag)
         db.read_new_tag(tag)
         allow_user=db.check_tag_auth(tag)
-        break
-        # if allow_user:
-        #     ser.write(b'1')
-        # else:
-        #     ser.write(b'0')
+        #break
+        if allow_user:
+            ser.write(b'1')
+        else:
+            ser.write(b'0')
     db.close()
 
 
