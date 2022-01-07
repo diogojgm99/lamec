@@ -98,3 +98,8 @@ main {
 #menu{
   margin: 20px;
 }
+
+.btn.btn-success,.btn.btn-danger{
+  margin-left: 5px;
+  margin-right: 5px;
+}
