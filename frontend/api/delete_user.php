@@ -17,11 +17,11 @@ while ($row = $resultSet->fetch_assoc()) {
 $id = json_encode($results[0]['id']);
 
 #$sql = "INSERT INTO user (name,tag_id) VALUES('$name','$id')";
-$sql = "DELETE FROM  user WHERE id='$id' AND name='$name'";
+$sql = "DELETE FROM  user WHERE tag_id='$id' AND name='$name'";
 $new_user = $db->prepare($sql);
 $new_user->execute();
 
 $db->close();
 
-echo "User updated successfully!";
+echo "User deleted successfully!";
 ?>

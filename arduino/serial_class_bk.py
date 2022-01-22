@@ -2,7 +2,6 @@ import serial
 import mariadb
 import sys
 from datetime import datetime 
-import time
 
 # this port address is for the serial tx/rx pins on the GPIO header
 SERIAL_PORT = '/dev/ttyUSB0'
@@ -49,27 +48,23 @@ class Database():
         return False
 
     def user_in_out(self,tag):
-        time1 = datetime.now()
+        time = datetime.now()
         self.cur.execute("SELECT * FROM in_out JOIN tags_registed as tags ON tags.id = in_out.tag_id WHERE tags.tag=? AND time_out IS NULL",(tag,))
         query= self.cur.fetchall()
         self.cur.execute("SELECT id from tags_registed WHERE tag=?",(tag,))
         id = self.cur.fetchall()
         print(id[0][0])
         if not query:
-            time_string = time1.strftime("%d/%m/%Y %H:%M:%S")
-            print(time_string)
-            self.cur.execute("INSERT INTO in_out (tag_id,time_in) VALUES (%s,%s)",(id[0][0],time_string,))#inserir data de entrada
+            self.cur.execute("INSERT INTO in_out (tag_id,time_in) VALUES (%s,%s)",(id[0][0],time,))#inserir data de entrada
         else:
             self.cur.execute("SELECT time_in FROM in_out WHERE time_out is NULL AND tag_id=?",(id[0][0],))
             time_in = self.cur.fetchall()
-            timestamp1 = time.mktime(datetime.strptime(time_in[0][0],
-                                             "%d/%m/%Y %H:%M:%S").timetuple())
-            timestamp2 = datetime.timestamp(time1)
+            time_in = datetime.fromisoformat(time_in[0][0])
+            timestamp1 = datetime.timestamp(time_in)
+            timestamp2 = datetime.timestamp(time)
             total = timestamp2 - timestamp1
             cost= round(total/60)
-            time_string = time.strftime("%d/%m/%Y %H:%M:%S")
-            print(time_string)
-            self.cur.execute("UPDATE in_out SET time_out=?,total_cost=? WHERE tag_id=? AND time_out is NULL",(time_string,cost,id[0][0],))#inserir data de saída
+            self.cur.execute("UPDATE in_out SET time_out=?,total_cost=? WHERE tag_id=? AND time_out is NULL",(time,cost,id[0][0],))#inserir data de saída
     
     def check_count(self,tag):
         self.cur.execute("SELECT COUNT(*) FROM in_out WHERE time_out IS NULL")
@@ -93,7 +88,7 @@ def main():
         print(tag)
         db.read_new_tag(tag)
         allow_user=db.check_tag_auth(tag)
-        # break
+        #break
         if allow_user:
             ser.write(b'1')
         else:
