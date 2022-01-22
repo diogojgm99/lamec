@@ -4,13 +4,17 @@ $(document).ready(function() {
         url: "http://localhost:3000/frontend/api/get_tags.php",
         dataType: "json",
         success: function (data) {
-            // console.log(data.data);
             data = data.data;
             var val_tag;
             data.forEach(tag => {
                 val_tag = tag.tag;
-                console.log(val_tag.replace(/ /g,'-'));
                 $("#tag").append("<option value="+val_tag.replace(/ /g,'-')+">"+val_tag+"</option>");
+                var location = window.location;
+                var url = new URL(location);
+                var name = url.searchParams.get('name');
+                var tag = url.searchParams.get('tag');
+                $("#name").val(name);
+                $('#tag').val(tag.replace(/ /g,'-'));
             });
         }
     });

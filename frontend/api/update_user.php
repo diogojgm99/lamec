@@ -17,7 +17,7 @@ while ($row = $resultSet->fetch_assoc()) {
 $id = json_encode($results[0]['id']);
 
 #$sql = "INSERT INTO user (name,tag_id) VALUES('$name','$id')";
-$sql = "UPDATE user SET name='$name', id='$id' WHERE id='$id'";
+$sql = "UPDATE user SET name='$name', tag_id='$id' WHERE name='$name'";
 $new_user = $db->prepare($sql);
 $new_user->execute();
 

@@ -21,9 +21,6 @@ $(document).ready(function() {
         var name = $('#name').val();
         var tag = $('#tag').val();
         tag = tag.replaceAll('-',' ');
-        console.log(name);
-        console.log(tag);
-        console.log("submit");
         $.ajax({
             type: "POST",
             url: "http://localhost:3000/frontend/api/new_user.php",
