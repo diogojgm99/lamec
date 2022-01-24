@@ -1,9 +1,17 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-$dbname = "lamec";
-$db = mysqli_connect($servername,$username,$password,$dbname);
+// $servername = "localhost";
+// $username = "root";
+// $password = "root";
+// $dbname = "lamec";
+// $db = mysqli_connect($servername,$username,$password,$dbname);
+$url = getenv('JAWSDB_MARIA_URL');
+$dbparts = parse_url($url);
+
+$hostname = $dbparts['host'];
+$username = $dbparts['user'];
+$password = $dbparts['pass'];
+$database = ltrim($dbparts['path'],'/');
+$db = mysqli_connect($hostname,$username,$password,$database);
 
 $sql = "SELECT id,tag FROM tags_registed;";
 $result = $db->prepare($sql);
